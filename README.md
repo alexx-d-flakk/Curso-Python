@@ -13,3 +13,10 @@ Segunda Clase:
 6. Metodos de Lista
 7. Slice
 8. Funciones para Listas
+
+Tercera Clase:
+
+9. Ciclos
+10. Ciclos While
+11. Ciclo For
+12. Errores
