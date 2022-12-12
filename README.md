@@ -20,3 +20,9 @@ Tercera Clase:
 10. Ciclos While
 11. Ciclo For
 12. Errores
+
+Cuarta Clase:
+
+13. Funciones
+14. Documentar
+15. Katas
