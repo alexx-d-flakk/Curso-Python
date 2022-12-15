@@ -35,3 +35,7 @@ Quinta Clase
 19. Dict Comprehension
 20. Conjuntos
 21. Latitud
+
+Sexta Clase
+
+23. Redes Neuronales
