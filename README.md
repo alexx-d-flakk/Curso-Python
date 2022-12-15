@@ -26,3 +26,12 @@ Cuarta Clase:
 13. Funciones
 14. Documentar
 15. Katas
+
+Quinta Clase
+
+16. Librerias
+17. Proyecto Generador de Contraseñas
+18. List Comprehension
+19. Dict Comprehension
+20. Conjuntos
+21. Latitud
