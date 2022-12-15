@@ -1,0 +1,372 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOITFevd5I9RcFVX11IfvgP",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/alexx-d-flakk/Curso-Python/blob/main/Clase-6\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Redes Neuronales"
+      ],
+      "metadata": {
+        "id": "VWXZkot0_x8a"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "id": "BIgq7WbX_C0U"
+      },
+      "outputs": [],
+      "source": [
+        "import numpy as np"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd"
+      ],
+      "metadata": {
+        "id": "EbCUcBmR_uTm"
+      },
+      "execution_count": 4,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from keras.models import Sequential\n",
+        "from keras.layers import Dense"
+      ],
+      "metadata": {
+        "id": "riHJx9ew_6Z0"
+      },
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "diabetes_train = pd.read_csv('/content/diabetes_train.csv')\n",
+        "diabetes_train"
+      ],
+      "metadata": {
+        "id": "ATTrOau0Ae1S"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "X = diabetes_train.iloc[ : ,0:8].values\n",
+        "X"
+      ],
+      "metadata": {
+        "id": "okWlyNN6A_VH"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "y = diabetes_train.iloc[ : , 8 ].values\n",
+        "y"
+      ],
+      "metadata": {
+        "id": "MBb8966SB0lE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Definir la estructura de la Red Neuronal"
+      ],
+      "metadata": {
+        "id": "bZThLpTGC6Dg"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model = Sequential()"
+      ],
+      "metadata": {
+        "id": "xHsCXGS7CUwQ"
+      },
+      "execution_count": 16,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model.add(Dense(12, input_dim=8, activation = 'relu'))"
+      ],
+      "metadata": {
+        "id": "JHizYZk7DG2r"
+      },
+      "execution_count": 17,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model.add(Dense(8, activation = 'relu'))"
+      ],
+      "metadata": {
+        "id": "rX6dQdFPDXlU"
+      },
+      "execution_count": 18,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model.add(Dense(1, activation= 'sigmoid'))"
+      ],
+      "metadata": {
+        "id": "2zjx-IAhDilY"
+      },
+      "execution_count": 19,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Modelo de compilacion de la Red"
+      ],
+      "metadata": {
+        "id": "8N0MR1F1D8sA"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model.compile(\n",
+        "    loss='binary_crossentropy',\n",
+        "    optimizer='adam',\n",
+        "    metrics=['accuracy']\n",
+        ")"
+      ],
+      "metadata": {
+        "id": "m2gh4-wLDst8"
+      },
+      "execution_count": 22,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Entrenamiento de una Red Neuronal"
+      ],
+      "metadata": {
+        "id": "mviHp1-sEqCT"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "historial = model.fit(X, y, epochs=1000, batch_size=10)"
+      ],
+      "metadata": {
+        "id": "EqR6XoXjElVV"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "oi16iXU0FDmo"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Visualizar funcion de perdida"
+      ],
+      "metadata": {
+        "id": "Vo84RCORHZSL"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "plt.xlabel(\"# Epoca\")\n",
+        "plt.ylabel(\"Funcion de perdida\")\n",
+        "\n",
+        "plt.plot(historial.history['loss'])"
+      ],
+      "metadata": {
+        "id": "TqCCIqgAHdW1"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "diabetes_test = pd.read_csv('/content/diabetes_test.csv')\n",
+        "diabetes_test"
+      ],
+      "metadata": {
+        "id": "c6Qpnb35HcC6"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "X_test = diabetes_test.iloc[ : ,0:8].values\n",
+        "X_test"
+      ],
+      "metadata": {
+        "id": "9MGpb4DlJHRB"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "y_test = diabetes_test.iloc[ : , -1 ].values\n",
+        "y_test"
+      ],
+      "metadata": {
+        "id": "R_YmKRl-Jdsx"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model.evaluate(X_test, y_test)"
+      ],
+      "metadata": {
+        "id": "BeRHWvdKJf3u"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "y_pred = model.predict(X_test)\n",
+        "np.round(y_pred)"
+      ],
+      "metadata": {
+        "id": "QgxUwgMkKAk0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "resultados = pd.DataFrame(np.round(y_pred), columns=['Prediccion'])\n",
+        "resultados['Real'] = pd.Series(y_test)\n",
+        "resultados"
+      ],
+      "metadata": {
+        "id": "NXGOV9ucKlmE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay"
+      ],
+      "metadata": {
+        "id": "AhwaU-oYLb-h"
+      },
+      "execution_count": 44,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "matrix = confusion_matrix(resultados['Real'],resultados['Prediccion'])"
+      ],
+      "metadata": {
+        "id": "cG2RE4TEMNx3"
+      },
+      "execution_count": 45,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "disp = ConfusionMatrixDisplay(matrix)\n",
+        "disp.plot()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 183
+        },
+        "id": "WVCQ7JVAMgyN",
+        "outputId": "d76c264c-46e3-4cfd-a47b-1bb960183e12"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-1-da9c8e28aa14>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mdisp\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mConfusionMatrixDisplay\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmatrix\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0mdisp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mplot\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mNameError\u001b[0m: name 'ConfusionMatrixDisplay' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "pEoneRKwNLdS"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
